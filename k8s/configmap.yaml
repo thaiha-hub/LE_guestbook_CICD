@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: guestbook-config
+data:
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_NAME: guestbook
+  DB_USER: guestbook
+
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+
+  PORT: "8080"
+
