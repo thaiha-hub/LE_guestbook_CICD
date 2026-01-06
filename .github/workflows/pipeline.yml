@@ -68,7 +68,11 @@ jobs:
           fi
 # Log in to OpenShift and apply configurations
       - name: Log in to OpenShift
-        run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
+        env:
+          OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+          OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }} 
+        run: |
+          oc login --token="$OPENSHIFT_TOKEN" --server="$OPENSHIFT_SERVER"
       
       - name: Apply Configuration
         run: oc apply -f k8s/
