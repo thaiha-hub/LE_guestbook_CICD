@@ -71,11 +71,7 @@ jobs:
         env:
           OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
           OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }} 
-        run: |
-          oc login \
-            --token="$OPENSHIFT_TOKEN" 
-            --server="$OPENSHIFT_SERVER"
-            --insecure-skip-tls-verify=true
+        run: oc login $OPENSHIFT_SERVER --token=$OPENSHIFT_TOKEN --insecure-skip-tls-verify=true
       
       - name: Apply Configuration
         run: oc apply -f k8s/
