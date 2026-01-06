@@ -82,5 +82,5 @@ jobs:
 # Restart deployments to use new images
       - name: Restart Apps
         run: |
-          oc rollout restart dc/le-guestbook-backend
-          oc rollout restart dc/le-guestbook-frontend
+          oc rollout restart deployment/guestbook-backend
+          oc rollout restart deployment/guestbook-frontend
