@@ -58,13 +58,21 @@ jobs:
         uses: redhat-actions/openshift-tools-installer@v1
         with:
           oc: "4"
+# Debugging step to verify secrets
+      - name: Debug Secrets
+        run: |
+          if [ -z "${{ secrets.OPENSHIFT_SERVER }}" ]; then
+            echo "ERROR: OPENSHIFT_SERVER is empty!"
+          else
+            echo "SUCCESS: OPENSHIFT_SERVER is found (it is masked, which is good)."
+          fi
 # Log in to OpenShift and apply configurations
       - name: Log in to OpenShift
         run: oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
-
+      
       - name: Apply Configuration
         run: oc apply -f k8s/
-
+      
 # Restart deployments to use new images
       - name: Restart Apps
         run: |
