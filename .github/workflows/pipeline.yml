@@ -22,7 +22,7 @@ jobs:
             image: le-guestbook-backend   
           - name: frontend
             context: ./frontend
-            image: guestbook-frontend  
+            image: le-guestbook-frontend  
     # Steps to build and push Docker images
     steps:
       - name: Checkout repository
