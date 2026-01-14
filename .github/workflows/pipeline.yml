@@ -7,11 +7,12 @@ on:
       - main
 # Set permissions for the workflow
 permissions:
-  contents: read
-  packages: write
+  contents: read                                 # the pipeline can read the repository content
+  packages: write                               # the pipeline can push Docker images to ghcr
+
 # Define the jobs in the workflow
 jobs:
-  # JOB 1: BUILD
+  # JOB 1: Build and push images onto ghcr with unique tags
   build:
     runs-on: ubuntu-latest
     strategy:
