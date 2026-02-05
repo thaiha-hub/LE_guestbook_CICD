@@ -203,3 +203,19 @@ Nej, egentligen inte, men vi kör oc apply -f k8s/ på hela mappen ändå. Det �
 Ja. Poddarna läser bara in inställningarna när de startar. Om vi ändrar en ConfigMap fattar inte appen det förrän vi gör en oc rollout restart så att nya poddar skapas med de nya inställningarna.
 
 **Hur fungerar privata containers?** Det har jag inte gjort.
+
+## Ändringar:
+
+Eftersom kursens OpenShift-kluster inte är uppe, valde jag att deploya Guestbook-applikationen på nytt i RH OpenShift Sandbox.
+
+Först gjorde jag applikationens container-images privata i ett container-register. Efter det konfigurerade jag OpenShift så att klustret har tillgång till de privata images, genom att lägga till ett image pull secret genom den här kommand:
+
+oc create secret docker-registry my-image-pull-secret \
+  --docker-server=quay.io \
+  --docker-username=hadang285 \
+  --docker-password=********** \
+  --docker-email=devops.engineer0528@gmail.com
+
+Till sist uppdaterade jag deployment-filerna så att Guestbook-applikationen använder de privata images när den startas.
+
+Länken till app: [Guestbook App](http://frontend-hadang285-dev.apps.rm1.0a51.p1.openshiftapps.com)

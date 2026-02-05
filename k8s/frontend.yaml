@@ -14,17 +14,17 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ghcr.io/thaiha-hub/le-guestbook-frontend:latest
-        # image: frontend-image
-        ports:
-          - containerPort: 8080
-        resources:
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-          limits:
-            cpu: "100m"
-            memory: "128Mi"
+        # image: ghcr.io/thaiha-hub/le-guestbook-frontend:latest
+        image: frontend-image
       imagePullSecrets:
         - name: ghcr-auth
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
 
