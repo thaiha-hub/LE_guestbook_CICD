@@ -77,6 +77,14 @@ jobs:
       - name: Select Project (for this specific assignment)
         run: oc project test-miljo2
 
+      - name: Create image pull secret
+        run: |
+          oc create secret docker-registry ghcr-auth \
+            --docker-server=ghcr.io \
+            --docker-username=${{ github.actor }} \
+            --docker-password=${{ secrets.GITHUB_TOKEN }} \
+            --dry-run=client -o yaml | oc apply -f -
+
       - name: Apply Configuration
         run: oc apply -f k8s/
       

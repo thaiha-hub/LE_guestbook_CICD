@@ -14,30 +14,33 @@ spec:
         app: backend
     spec:
       containers:
-        - name: backend
-          image: ghcr.io/thaiha-hub/le-guestbook-backend:latest
-          envFrom:
-            - configMapRef:
-                name: guestbook-config
-          env:
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: DB_PASSWORD
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis-secret
-                  key: REDIS_PASSWORD
-          ports:
-            - containerPort: 8080
-          resources:
-              requests:
-                cpu: "100m"
-                memory: "128Mi"
-              limits:
-                cpu: "200m"
-                memory: "256Mi"
+      - name: backend
+        image: ghcr.io/thaiha-hub/le-guestbook-backend:latest
+        # image: backend-image
+        envFrom:
+          - configMapRef:
+              name: guestbook-config
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: DB_PASSWORD
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: redis-secret
+                key: REDIS_PASSWORD
+        ports:
+          - containerPort: 8080
+        resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+      imagePullSecrets:
+        - name: ghcr-auth
 
 
