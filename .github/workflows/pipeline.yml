@@ -75,7 +75,7 @@ jobs:
         run: oc login $OPENSHIFT_SERVER --token=$OPENSHIFT_TOKEN --insecure-skip-tls-verify=true
 
       - name: Select Project (for this specific assignment)
-        run: oc project test-miljo2
+        run: oc project hadang285-dev
 
       - name: Create image pull secret
         run: |
