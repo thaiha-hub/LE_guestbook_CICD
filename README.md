@@ -25,7 +25,7 @@ Projektet visar **production-liknande arbetssätt** för CI/CD, containerisering
 
 ---
 
-## Applikationsarkitektur (3-tier)
+## Applikationsarkitektur
 
 ### 1. Frontend
 
@@ -165,16 +165,14 @@ För att pipelinen ska fungera krävs följande **GitHub Actions-secrets**:
 ### Databaspersistering (PVC)
 
 * **Problem:** Uppdatering av `DB_PASSWORD` fungerade inte – PostgreSQL nekade inloggning.
-* **Orsak:** PostgreSQL initierar datakatalogen endast första gången.
-* **Lösning:** Jag fastnade länge på att DB_PASSWORD inte uppdaterades, trots att jag ändrade mina Secrets. Jag insåg till slut att PostgreSQL bara sätter lösenordet första gången databasen skapas. Eftersom vår data sparades i en PVC, vägrade den byta lösenord vid omstart. Jag löste det genom att radera vår PVC och låta databasen initieras om från början. 
+
+Jag fastnade länge på att DB_PASSWORD inte uppdaterades, trots att jag ändrade mina Secrets. Jag insåg till slut att PostgreSQL bara sätter lösenordet första gången databasen skapas. Eftersom vår data sparades i en PVC, vägrade den byta lösenord vid omstart. Jag löste det genom att radera vår PVC och låta databasen initieras om från början. 
 
 ---
 
 ### OpenShift Route & port-namn
 
 * **Problem:** Applikationen deplyars korrekt men kunde inte nås via publik URL.
-* **Orsak:** OpenShift Routes kräver namngivna service-portar.
-* **Lösning:**
 
 Trots att allt såg grönt ut i OpenShift kunde jag inte nå appen via den publika URL:en. Jag upptäckte att OpenShift Routes ibland är kräsna med portnummer. Genom att byta ut portnumret mot ett namngivet interface (name: http i servicen och targetPort: http i routern) fick jag trafiken att flöda direkt.
 
